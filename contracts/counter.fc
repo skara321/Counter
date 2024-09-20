@@ -21,6 +21,9 @@
   if (op == 1) {                            ;; handle op #1 = increment
     save_data(counter + 1);                 ;; call our write utility function to persist values to storage
   }
+  if(op == 2){
+    save_data(counter - 1);        
+  }
 }
 
 int counter() method_id {        ;; getter declaration - returns int as result

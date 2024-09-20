@@ -27,7 +27,7 @@ export async function run() {
   const counterContract = client.open(counter);
 
   // send the increment transaction
-  await counterContract.sendIncrement(walletSender);
+  await counterContract.sendDecrement(walletSender);
 
   // wait until confirmed
   let currentSeqno = seqno;
