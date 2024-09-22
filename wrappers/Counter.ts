@@ -11,6 +11,10 @@ export default class Counter implements Contract {
         return new Counter(address, { code, data });
     }
 
+    static createFromAddress(address: Address) {
+        return new Counter(address);
+    }
+
     async sendDeploy(provider: ContractProvider, via: Sender) {
         await provider.internal(via, {
             value: "0.01", // send 0.01 TON to contract for rent
