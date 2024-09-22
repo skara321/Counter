@@ -50,12 +50,26 @@ describe('Counter', () => {
     });
 
     it('should deploy send increment', async () => {
-        const incrementResult = await counter.sendIncrement(walletSender);
-        expect(incrementResult.transactions).toStrictEqual([]);
+        const initialCounterValue = await counter.getCounter();
+        const incrementResult = await counter.sendIncrement(deployer.getSender());
+        expect(incrementResult.transactions).toHaveTransaction({
+            from: deployer.address,
+            to: counter.address,
+            success: true,
+        });
+        const counterValue = await counter.getCounter();
+        expect(counterValue).toEqual(initialCounterValue + 1n);
     });
 
     it('should deploy send decrement', async () => {
-        const decrementResult = await counter.sendDecrement(walletSender);
-        expect(decrementResult.transactions).toStrictEqual([]);
+        const initialCounterValue = await counter.getCounter();
+        const decrementResult = await counter.sendDecrement(deployer.getSender());
+        expect(decrementResult.transactions).toHaveTransaction({
+            from: deployer.address,
+            to: counter.address,
+            success: true,
+        });
+        const counterValue = await counter.getCounter();
+        expect(counterValue).toEqual(initialCounterValue - 1n);
     });
 });
